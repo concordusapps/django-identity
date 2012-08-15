@@ -23,7 +23,9 @@ from django.contrib.auth.views import (
 # URL configuration
 urlpatterns = patterns('',
     url(r'^login',
-        login,
+        login, {
+            'template_name': 'admin/login.html'
+        },
         name='login'
     ),
 
