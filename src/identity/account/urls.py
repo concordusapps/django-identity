@@ -10,7 +10,6 @@
 """
 from django.conf.urls import patterns, url
 from django.contrib.auth.views import (
-    login,
     logout,
     password_change,
     password_change_done,
@@ -18,12 +17,15 @@ from django.contrib.auth.views import (
     password_reset_done,
     password_reset_confirm,
     password_reset_complete)
+from . import views
 
 
 # URL configuration
 urlpatterns = patterns('',
+    url(r'^profile', views.Profile.as_view(), name='profile'),
+
     url(r'^login',
-        login, {
+        'identity.account.views.login', {
             'template_name': 'admin/login.html'
         },
         name='login'
