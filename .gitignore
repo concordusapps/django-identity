@@ -1,4 +1,15 @@
+# Silly logs
 *.log
 *.pot
+
+# Python compiled files
 *.pyc
+*.pyo
+
+# Local site configuration
 local_settings.py
+
+# Eclipse projects
+.pydevproject
+.project
+.settings
