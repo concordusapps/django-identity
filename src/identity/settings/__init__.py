@@ -64,7 +64,9 @@ DATABASES = {
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
-        'PORT': '', }}
+        'PORT': '',
+    },
+}
 
 # Local time zone for this installation.
 TIME_ZONE = 'America/Los_Angeles'
@@ -175,6 +177,12 @@ LOGGING = {
 
 # Define the extended user profile
 AUTH_PROFILE_MODULE = 'account.Profile'
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = (
+    'identity.account.backends.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Login settings
 LOGIN_REDIRECT_URL = '/'
