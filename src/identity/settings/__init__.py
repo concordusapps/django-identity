@@ -187,6 +187,17 @@ AUTHENTICATION_BACKENDS = (
 # Login settings
 LOGIN_REDIRECT_URL = '/'
 
+# LDAP Settings
+LDAP = {
+    'VERSION': '3',
+    'HOST': 'spock',
+    'DN': 'dc=concordusapps,dc=com',
+    'ADMIN': {
+        'DN': '',
+        'PASS': ''
+    }
+}
+
 # Attempt to include local settings
 try:
     from .local import *

@@ -15,14 +15,12 @@ from django.conf import settings
 import hashlib
 from . import models
 
+
 class LDAPBackend(RemoteUserBackend):
     """TODO"""
 
     ## TODO
     create_unknown_user = False
-
-    ## TODO
-    base_dn = 'ou=people,dc=concordusapps,dc=com'
 
     def populate_profile(self, user, attributes):
         """
@@ -45,40 +43,21 @@ class LDAPBackend(RemoteUserBackend):
         # Save the profile
         profile.save()
 
-    def clean_username(self, username):
-        """
-        Performs any cleaning on the username (e.g. stripping LDAP DN
-        information) prior to using it to get or create a User object.
-        """
-        raise Exception
-
-    def configure_user(self, user):
-        """
-        Configures a newly created user. This method is called immediately
-        after a new user is created, and can be used to perform custom setup
-        actions, such as setting the user's groups based on attributes in an
-        LDAP directory.
-        """
-        raise Exception
-
-#    def get_user(self, user_id):
-#        """Retreives a user object from the passed identifier.
-#        """
-#
-#        # user = somehow_create_an_instance_of (MyUser, user_id)
-#        # return user
-
     def authenticate(self, **credentials):
         """
         Attempts to authenticate the user by searching and verifying
         creditionals against LDAP.
         """
         # Construct the DN
-        dn = "uid={},{}".format(credentials['username'], LDAPBackend.base_dn)
+        dn = "uid={},ou=people,{}".format(
+            credentials['username'],
+            settings.LDAP['DN']
+        )
 
         # Initialize the LDAP connection
-        connection = ldap.open('spock')
-        connection.protocol_version = ldap.VERSION3
+        connection = ldap.open(settings.LDAP['HOST'])
+        connection.protocol_version = getattr(
+            ldap, 'VERSION{}'.format(settings.LDAP['VERSION']))
 
         try:
             # Attempt to authenticate with the given credentials
@@ -86,13 +65,14 @@ class LDAPBackend(RemoteUserBackend):
 
             # We now have an authenticated LDAP connection; let's play
             try:
-                # Hash the DN and get the first 30 characters
+                # Hash the DN and get the first 30 characters to store as their
+                # django username
                 hash = hashlib.sha256(dn).hexdigest()[:30]
 
                 # Has this LDAP user been locally cached ?
                 user, new = User.objects.get_or_create(username=hash)
                 if new:
-                    # Initialize user
+                    # No; initialize user
                     user.set_unusable_password()
 
                     # FIXME: REMOVE this and actually check for permissions
@@ -113,20 +93,15 @@ class LDAPBackend(RemoteUserBackend):
                 # Populate profile
                 self.populate_profile(user, attributes[0][1])
 
-                #self.populate_profile(user.get_profile(), connection)
-
                 # Yeah; off we go
                 return user
 
             except User.DoesNotExist:
                 # Nope; die
-                print("Does not exist.")
                 return None
 
-        except BaseException as x:
+        except:
             # Something went wrong; we have no auth
-            print(x)
-            print("Not authenticated.")
             return None
 
         finally:
