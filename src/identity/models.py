@@ -53,4 +53,11 @@ class Role(Timestamp):
 class Entitlement(Timestamp):
     """TODO"""
 
-    ##
+    ## The service of which the entitlement is defined in.
+    service = models.ForeignKey(Service)
+
+    ## TODO
+    description = models.CharField(max_length=1024)
+
+    ## TODO
+    value = models.CharField(max_length=128)
