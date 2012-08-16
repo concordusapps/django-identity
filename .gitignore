@@ -7,7 +7,7 @@
 *.pyo
 
 # Local site configuration
-local_settings.py
+src/*/settings/local.py
 
 # Eclipse projects
 .pydevproject
