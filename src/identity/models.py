@@ -35,3 +35,22 @@ class Provider(Resource):
 class Service(Resource):
     """A resource capable of a service; or, represented as a product.
     """
+
+
+class Role(Timestamp):
+    """TODO"""
+
+    ## The service of which the role is defined in.
+    service = models.ForeignKey(Service)
+
+    ## TODO
+    description = models.CharField(max_length=1024)
+
+    ## TODO
+    value = models.CharField(max_length=128)
+
+
+class Entitlement(Timestamp):
+    """TODO"""
+
+    ##
