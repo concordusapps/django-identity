@@ -35,3 +35,7 @@ class Directory(Store):
             against LDAP.
         """,
     )
+
+    def __unicode__(self):
+        """Returns a textual representation of this."""
+        return unicode(self.host)
