@@ -17,3 +17,4 @@ class Profile(ModelForm):
 
     class Meta:
         model = models.Profile
+        fields = ['family_name', 'given_name']
