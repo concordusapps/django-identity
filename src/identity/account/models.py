@@ -10,6 +10,7 @@
 """
 from django.db import models
 from django.contrib.auth.models import User
+from identity.models import Entitlement, Role
 
 
 class Profile(models.Model):
@@ -24,6 +25,12 @@ class Profile(models.Model):
 
     ## TODO
     family_name = models.CharField(max_length=512, null=True, blank=True)
+
+    ## Roles that the user is defined to have in services.
+    roles = models.ManyToManyField(Role)
+
+    ## Entitlements that the user is defined to have in services.
+    entitlements = models.ManyToManyField(Entitlement)
 
     def __unicode__(self):
         """Returns a textual representation of this."""
