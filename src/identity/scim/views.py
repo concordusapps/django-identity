@@ -85,14 +85,14 @@ class User(Endpoint):
         """
         return super(User, self).obj_get(request, **kwargs)
 
-    def obj_create(self, request=None, **kwargs):
+    def obj_create(self, bundle, request=None, **kwargs):
         """TODO:
         This function creates a scim object (and should also create a user)
         based on the request
         """
         return super(User, self).obj_creat(request, **kwargs)
 
-    def obj_update(self, request=None, **kwargs):
+    def obj_update(self, bundle, request=None, **kwargs):
         """TODO:
         This function updates a scim object in place.
         Raise NotFound() exception on 404
