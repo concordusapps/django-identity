@@ -53,3 +53,7 @@ class Object(Timestamp):
 
     ## Descriptive name of this LDAP object.
     description = models.CharField(max_length=512)
+
+    def __unicode__(self):
+        """Returns a textual representation of this."""
+        return unicode(self.description)
