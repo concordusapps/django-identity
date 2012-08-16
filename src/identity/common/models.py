@@ -49,7 +49,7 @@ class Timestamp(models.Model):
     updated = models.DateTimeField(auto_now=True, editable=False)
 
 
-class Protocol(Timestamp):
+class Protocol(models.Model):
     """Identifies the transport protocol used to access the host."""
 
     ## Identifies both the name of the protocol and the scheme used to access

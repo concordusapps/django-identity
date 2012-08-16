@@ -21,7 +21,7 @@ class Resource(InheritanceAware, Timestamp):
     ## The descriptive name of the resource.
     name = models.CharField(max_length=1024)
 
-    ## Identiifes the host on which the resource resides.
+    ## Identifies the host on which the resource resides.
     host = models.ForeignKey(Host)
 
 
