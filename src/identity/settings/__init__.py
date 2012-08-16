@@ -165,6 +165,8 @@ INSTALLED_APPS = (
     '{}.account'.format(PROJECT_NAME),
     '{}.common'.format(PROJECT_NAME),
     '{}.scim'.format(PROJECT_NAME),
+    '{}.db'.format(PROJECT_NAME),
+    '{}.db.ldap'.format(PROJECT_NAME),
 )
 
 if DEBUG:
@@ -191,17 +193,6 @@ AUTHENTICATION_BACKENDS = (
     'identity.account.backends.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-
-# LDAP Settings
-LDAP = {
-    'VERSION': '',
-    'HOST': '',
-    'DN': '',
-    'ADMIN': {
-        'DN': '',
-        'PASS': ''
-    }
-}
 
 # Attempt to include local settings
 try:
