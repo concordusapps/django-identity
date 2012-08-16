@@ -38,7 +38,6 @@ class Provider(Resource):
     using SAML, SCIM, and XACML (forthcoming).
     """
 
-
 class Service(Resource):
     """A resource capable of a service; or, represented as a product.
     """
@@ -55,6 +54,10 @@ class Role(Timestamp):
 
     ## TODO
     value = models.CharField(max_length=128)
+
+    def __unicode__(self):
+        """Returns a textual representation of this."""
+        return '{}: {}'.format(unicode(self.service), self.description)
 
 
 class Entitlement(Timestamp):
