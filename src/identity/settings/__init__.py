@@ -165,8 +165,7 @@ INSTALLED_APPS = (
     '{}.account'.format(PROJECT_NAME),
     '{}.common'.format(PROJECT_NAME),
     '{}.scim'.format(PROJECT_NAME),
-    '{}.db'.format(PROJECT_NAME),
-    '{}.db.ldap'.format(PROJECT_NAME),
+    '{}.ldap'.format(PROJECT_NAME),
 )
 
 if DEBUG:
