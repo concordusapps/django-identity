@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-""" \file identity/db/models.py
-\brief Implements the models neccessary to abstract user data stores.
+""" \file identity/ldap/models.py
+\brief Implements the models neccessary to map to LDAP.
 
 \author Erich Healy (cactuscommander) ErichRHealy@gmail.com
 \author Ryan Leckey (mehcode) leckey.ryan@gmail.com
@@ -9,12 +9,43 @@
            All Rights Reserved.
 """
 from django.db import models
-from identity.common.models import InheritanceAware, Timestamp
-from identity.models import Provider
+from identity.common.models import Host, Timestamp
 
-class Store(Timestamp, InheritanceAware):
-    """Represents a generic data store.
+
+class Directory(Timestamp):
+    """Represents a LDAP directory.
     """
 
-    ## The provider that this data store is behind.
-    provider = models.ForeignKey(Provider)
+    class Meta:
+        verbose_name_plural = 'directories'
+
+    ## The host on which the LDAP directory resides.
+    host = models.ForeignKey(
+        Host,
+        help_text="The host on which the LDAP directory resides.")
+
+    ## The base distinguished name.
+    base_dn = models.CharField(
+        verbose_name="base distinguished name",
+        max_length=1024,
+        blank=True,
+        help_text="""
+            The base distinguished name that is prepended to every query
+            against LDAP.
+        """,
+    )
+
+    def __unicode__(self):
+        """Returns a textual representation of this."""
+        return unicode(self.host)
+
+
+class Object(Timestamp):
+    """Represents an object inside a LDAP directory.
+    """
+
+    ## The LDAP directory on which it resides.
+    directory = models.ForeignKey(Directory)
+
+    ## Descriptive name of this LDAP object.
+    description = models.CharField(max_length=512)

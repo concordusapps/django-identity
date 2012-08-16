@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" \file identity/db/ldap/admin.py
+""" \file identity/ldap/admin.py
 \brief Registers the LDAP data store models.
 
 \author Erich Healy (cactuscommander) ErichRHealy@gmail.com
@@ -13,3 +13,4 @@ from . import models
 
 
 site.register(models.Directory)
+site.register(models.Object)
