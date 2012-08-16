@@ -57,7 +57,7 @@ class Role(Timestamp):
 
     def __unicode__(self):
         """Returns a textual representation of this."""
-        return '{}: {}'.format(unicode(self.service), self.description)
+        return '{}: {}'.format(self.service.slug, self.description)
 
 
 class Entitlement(Timestamp):
