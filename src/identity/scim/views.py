@@ -111,3 +111,10 @@ class User(Endpoint):
         Raise NotFound() exception on 404
         """
         return super(User, self).obj_delete(request, **kwargs)
+
+    def rollback(self, bundles):
+        """TODO:
+        Delete the objects associated with list of bundles given
+        Will need to delete the User objects, or set them to inactive
+        """
+        return super(User, self).rollback(bundles)
