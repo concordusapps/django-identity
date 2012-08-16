@@ -3,16 +3,32 @@
     "pk": 1,
     "model": "common.protocol",
     "fields": {
-      "port": 80,
-      "name": "http"
+      "name": "http",
+      "port": 80
     }
   },
   {
     "pk": 2,
     "model": "common.protocol",
     "fields": {
-      "port": 443,
-      "name": "https"
+      "name": "https",
+      "port": 443
+    }
+  },
+  {
+    "pk": 3,
+    "model": "common.protocol",
+    "fields": {
+      "name": "ldap",
+      "port": 389
+    }
+  },
+  {
+    "pk": 4,
+    "model": "common.protocol",
+    "fields": {
+      "name": "ldaps",
+      "port": 636
     }
   }
 ]
