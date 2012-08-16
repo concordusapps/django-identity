@@ -24,6 +24,13 @@ class Resource(InheritanceAware, Timestamp):
     ## Identifies the host on which the resource resides.
     host = models.ForeignKey(Host)
 
+    ## Identifies where on the host the resource resides.
+    path = models.CharField(max_length=1024)
+
+    def __unicode__(self):
+        """Returns a textual representation of this."""
+        return self.name
+
 
 class Provider(Resource):
     """
