@@ -54,6 +54,9 @@ class Object(Timestamp):
     ## Descriptive name of this LDAP object.
     description = models.CharField(max_length=512)
 
+    ## Parent object of this.
+    parent = models.ForeignKey('self', null=True, blank=True)
+
     def __unicode__(self):
         """Returns a textual representation of this."""
         return unicode(self.description)
