@@ -30,22 +30,41 @@
 from tastypie.resources import Resource, ModelResource
 from tastypie.bundle import Bundle
 from tastypie.utils import trailing_slash
-from django.conf.urls.defaults import url
 from scim import user
 from tastypie import bundle
 from identity.account.models import Profile
+from django.conf.urls.defaults import url
 
 
 class Endpoint(ModelResource):
     """Generic endpoint for making a tastypie resource more scim-like
-    This is copied verbatem from tastypie's source code as of
-    https://github.com/toastdriven/django-tastypie/blob/5397dec04fe83092a56ba14a843731f2aa08184d/tastypie/resources.py#L288
     """
 
     def base_urls(self):
         """Scim only responds to an endpoint with an optional user after it
+        This is copied verbatem from tastypie's source code as of
+        https://github.com/toastdriven/django-tastypie/blob/v0.9.11/tastypie/resources.py#L274
         """
-        return [url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_list'), name="api_dispatch_list"),]
+        return [
+            url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_list'), name="api_dispatch_list"),
+            url(r"^(?P<resource_name>%s)/(?P<pk>\w[\w/-]*)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
+        ]
+
+    def alter_list_data_to_serialize(self, request, data):
+        """Remove HATEOAS stuff and reformat list queries"""
+
+        # format stuff in a scim compliant manner
+        data['totalResults'] = data['meta']['total_count']
+
+        # Note the arbitrary capitalization of Resources here.
+        # Taken from http://www.simplecloud.info/specs/draft-scim-api-00.html#query-resources
+        data['Resources'] = data['objects']
+
+        # Remove default tastypie stuff
+        del data['meta']
+        del data['objects']
+
+        return super(Endpoint, self).alter_list_data_to_serialize(request, data)
 
 
 class User(Endpoint):
