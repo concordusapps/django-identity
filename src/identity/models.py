@@ -25,7 +25,7 @@ class Resource(InheritanceAware, Timestamp):
     host = models.ForeignKey(Host)
 
     ## Identifies where on the host the resource resides.
-    path = models.CharField(max_length=1024)
+    path = models.CharField(max_length=1024, blank=True)
 
     def __unicode__(self):
         """Returns a textual representation of this."""
@@ -37,6 +37,7 @@ class Provider(Resource):
     A resource capable of authentication, authorization, and provisioning
     using SAML, SCIM, and XACML (forthcoming).
     """
+
 
 class Service(Resource):
     """A resource capable of a service; or, represented as a product.
@@ -71,3 +72,7 @@ class Entitlement(Timestamp):
 
     ## TODO
     value = models.CharField(max_length=128)
+
+    def __unicode__(self):
+        """Returns a textual representation of this."""
+        return '{}: {}'.format(self.service.slug, self.description)
