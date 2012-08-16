@@ -1,0 +1,18 @@
+[
+  {
+    "pk": 1,
+    "model": "common.protocol",
+    "fields": {
+      "port": 80,
+      "name": "http",
+    }
+  },
+  {
+    "pk": 2,
+    "model": "common.protocol",
+    "fields": {
+      "port": 443,
+      "name": "https",
+    }
+  }
+]

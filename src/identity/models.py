@@ -9,7 +9,6 @@
            All Rights Reserved.
 """
 from django.db import models
-from django.contrib.contenttypes.models import ContentType
 from .common.models import InheritanceAware, Timestamp, Host
 
 
@@ -25,11 +24,13 @@ class Resource(InheritanceAware, Timestamp):
     ## Identiifes the host on which the resource resides.
     host = models.ForeignKey(Host)
 
+
 class Provider(Resource):
     """
     A resource capable of authentication, authorization, and provisioning
     using SAML, SCIM, and XACML (forthcoming).
     """
+
 
 class Service(Resource):
     """A resource capable of a service; or, represented as a product.
