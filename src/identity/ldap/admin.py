@@ -10,7 +10,16 @@
 """
 from django.contrib.admin import site
 from . import models
+from django.contrib.admin.options import ModelAdmin
 
 
 site.register(models.Directory)
-site.register(models.Object)
+
+
+class ObjectAdmin(ModelAdmin):
+    list_display = ('directory', 'description',)
+    list_display_links = ('description',)
+    list_filter = ('directory',)
+
+
+site.register(models.Object, ObjectAdmin)
