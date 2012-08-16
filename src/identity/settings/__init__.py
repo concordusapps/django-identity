@@ -31,6 +31,7 @@ from os import path
 from django.core.urlresolvers import reverse
 from django.conf import global_settings
 
+
 # Project directories
 PROJECT_NAME = 'identity'
 PROJECT_ROOT = path.abspath(path.join(__file__, '..', '..'))
@@ -186,9 +187,9 @@ AUTHENTICATION_BACKENDS = (
 
 # LDAP Settings
 LDAP = {
-    'VERSION': '3',
-    'HOST': 'spock',
-    'DN': 'dc=concordusapps,dc=com',
+    'VERSION': '',
+    'HOST': '',
+    'DN': '',
     'ADMIN': {
         'DN': '',
         'PASS': ''
