@@ -30,10 +30,10 @@
 from tastypie.resources import Resource, ModelResource
 from tastypie.bundle import Bundle
 from tastypie.utils import trailing_slash
-from django.conf.urls.defaults import url
 from scim import user
 from tastypie import bundle
 from identity.account.models import Profile
+from django.conf.urls.defaults import url
 
 
 class Endpoint(ModelResource):
@@ -43,13 +43,12 @@ class Endpoint(ModelResource):
     def base_urls(self):
         """Scim only responds to an endpoint with an optional user after it
         This is copied verbatem from tastypie's source code as of
-        https://github.com/toastdriven/django-tastypie/blob/5397dec04fe83092a56ba14a843731f2aa08184d/tastypie/resources.py#L288
+        https://github.com/toastdriven/django-tastypie/blob/v0.9.11/tastypie/resources.py#L274
         """
-        urls = [
+        return [
             url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_list'), name="api_dispatch_list"),
-            #url(r"^(?P<resource_name>%s)/(?P<%s>\w[\w/-]*)%s$" % (self._meta.resource_name, self._meta.detail_uri_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
+            url(r"^(?P<resource_name>%s)/(?P<pk>\w[\w/-]*)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_detail'), name="api_dispatch_detail"),
         ]
-        return urls
 
     def alter_list_data_to_serialize(self, request, data):
         """Remove HATEOAS stuff and reformat list queries"""
@@ -60,18 +59,12 @@ class Endpoint(ModelResource):
         # Note the arbitrary capitalization of Resources here.
         # Taken from http://www.simplecloud.info/specs/draft-scim-api-00.html#query-resources
         data['Resources'] = data['objects']
-#        raise Exception
 
         # Remove default tastypie stuff
         del data['meta']
         del data['objects']
 
         return super(Endpoint, self).alter_list_data_to_serialize(request, data)
-
-    def alter_detail_data_to_serialize(self, request, data):
-        """Remove HATEOAS stuff from return data (detail format)"""
-
-        return super(Endpoint, self).alter_detail_data_to_serialize(request, data)
 
 
 class User(Endpoint):
