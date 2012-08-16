@@ -117,7 +117,8 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',)
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    'django.core.context_processors.request',)
+    'django.core.context_processors.request',
+)
 
 # Middleware classes
 MIDDLEWARE_CLASSES = ('django.middleware.gzip.GZipMiddleware',)
@@ -131,7 +132,8 @@ MIDDLEWARE_CLASSES += (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',)
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
 
 # Root URL configuration
 ROOT_URLCONF = '{}.urls'.format(PROJECT_NAME)
@@ -177,7 +179,8 @@ LOGGING = {
     'disable_existing_loggers': False,
     'filters': {},
     'handlers': {},
-    'loggers': {}}
+    'loggers': {}
+}
 
 # Define the extended user profile
 AUTH_PROFILE_MODULE = 'account.Profile'
