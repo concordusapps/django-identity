@@ -8,15 +8,3 @@
 \copyright Copyright 2012 © Concordus Applications, Inc.
            All Rights Reserved.
 """
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-
-
-class Protected(object):
-    """TODO
-    """
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        """TODO"""
-        return super(Protected, self).dispatch(*args, **kwargs)

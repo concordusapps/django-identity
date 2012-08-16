@@ -159,13 +159,16 @@ INSTALLED_APPS = (
     # Project
     PROJECT_NAME,
 
-    # Accounts
-    '{}.account'.format(PROJECT_NAME),)
+    # Components
+    '{}.account'.format(PROJECT_NAME),
+    '{}.common'.format(PROJECT_NAME),
+)
 
 if DEBUG:
     INSTALLED_APPS += (
         'django_extensions',
-        'debug_toolbar',)
+        'debug_toolbar',
+    )
 
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
