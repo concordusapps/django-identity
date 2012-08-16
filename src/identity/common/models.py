@@ -56,6 +56,9 @@ class Protocol(Timestamp):
     ## it (ex. http, ssh, ftp, etc).
     name = models.CharField(max_length=255)
 
+    ## Identifies the default port for this protocol.
+    port = models.IntegerField()
+
     def __unicode__(self):
         """Returns a textual representation of this."""
         return self.name
@@ -80,7 +83,10 @@ class Host(Timestamp):
 
     def get_absolute_url(self):
         """Returns a useable URL from this."""
-        port = '' if (self.port or 80) == 80 else ':{}'.format(self.port)
+        port = ''
+        if not (self.port or self.protocol.port) == self.protocol.port:
+            port = ':{}'.format(self.port)
+
         return '{}://{}{}'.format(
             self.protocol,
             self.server or 'localhost',
