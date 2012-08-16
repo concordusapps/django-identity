@@ -13,4 +13,4 @@ from . import models
 
 
 site.register(models.Service)
-site.register(models.Resource)
+site.register(models.Provider)
