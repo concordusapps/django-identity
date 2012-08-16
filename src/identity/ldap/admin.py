@@ -17,7 +17,7 @@ site.register(models.Directory)
 
 
 class ObjectAdmin(ModelAdmin):
-    list_display = ('directory', 'description', 'parent')
+    list_display = ('directory', 'parent', 'description',)
     list_display_links = ('description',)
     list_filter = ('directory', 'parent')
 

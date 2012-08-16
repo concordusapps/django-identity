@@ -19,7 +19,7 @@ site.register(models.Provider)
 
 class RoleEntitlementAdmin(ModelAdmin):
     list_filter = ('service',)
-    list_display = ('service', 'description', 'value')
+    list_display = ('service', 'value', 'description',)
     list_editable = ('value',)
     list_display_links = ('description',)
 
