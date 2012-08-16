@@ -14,3 +14,6 @@ from . import models
 
 site.register(models.Service)
 site.register(models.Provider)
+
+site.register(models.Entitlement)
+site.register(models.Role)
