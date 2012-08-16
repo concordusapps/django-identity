@@ -25,5 +25,7 @@ class Timestamp(models.Model):
     updated = models.DateTimeField(auto_now=True, editable=False)
 
 
-class Provider(models.Model):
+class Provider(Timestamp):
+    """
+    """
     pass
