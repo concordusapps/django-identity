@@ -164,6 +164,7 @@ INSTALLED_APPS = (
     # Components
     '{}.account'.format(PROJECT_NAME),
     '{}.common'.format(PROJECT_NAME),
+    '{}.scim'.format(PROJECT_NAME),
 )
 
 if DEBUG:
