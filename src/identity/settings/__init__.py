@@ -195,20 +195,6 @@ LDAP = {
     }
 }
 
-# Identity settings
-IDENTITY = {
-    # Containing a SERVER key here indicates that this can be used as a central
-    # server of authetnication and identity management.
-    'SERVER': {
-    },
-
-    # Containing a CLIENT key here indicates that this can be used as a
-    # client that connects to an identity server (either django-identity or
-    # another that is SAML and SCIM compliant).
-#    'CLIENT': {
-#    }
-}
-
 # Attempt to include local settings
 try:
     from .local import *
