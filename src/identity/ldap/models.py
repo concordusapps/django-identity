@@ -10,6 +10,7 @@
 """
 from django.db import models
 from identity.common.models import Host, Timestamp
+from identity.models import Provider
 
 
 class Directory(Timestamp):
@@ -18,6 +19,9 @@ class Directory(Timestamp):
 
     class Meta:
         verbose_name_plural = 'directories'
+
+    ## The provider that this data store is to back.
+    provider = models.ForeignKey(Provider)
 
     ## The host on which the LDAP directory resides.
     host = models.ForeignKey(
