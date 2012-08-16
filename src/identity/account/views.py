@@ -12,7 +12,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth import views
-from identity.views import Protected
+from identity.common.views import Protected
 from django.conf import settings
 from django.views.generic.edit import FormView, UpdateView
 from . import forms
