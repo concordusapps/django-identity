@@ -9,10 +9,10 @@
            All Rights Reserved.
 """
 from . import models
-from django.forms.forms import Form
+from django.forms.models import ModelForm
 
 
-class Profile(Form):
+class Profile(ModelForm):
     """TODO"""
 
     class Meta:

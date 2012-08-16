@@ -47,7 +47,3 @@ class Profile(models.Model):
     def __unicode__(self):
         """Returns a textual representation of this."""
         return unicode(self.user)
-
-
-# Register signals
-from . import signals #@UnusedImport

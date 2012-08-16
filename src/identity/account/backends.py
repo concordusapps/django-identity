@@ -14,8 +14,6 @@ import ldap
 from django.conf import settings
 import hashlib
 from . import models
-from django.contrib.sessions.backends.db import SessionStore
-from django.contrib.sessions.models import Session
 
 
 class LDAPBackend(RemoteUserBackend):
