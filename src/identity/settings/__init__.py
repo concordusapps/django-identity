@@ -109,7 +109,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',)
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '58yno^b5t^wvr)e4s8tet4&amp;#odp+9@+tu*nrq#*#d*gds%06w+'
+# SECRET_KEY = None
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -162,10 +162,8 @@ INSTALLED_APPS = (
     PROJECT_NAME,
 
     # Components
-    '{}.account'.format(PROJECT_NAME),
     '{}.common'.format(PROJECT_NAME),
     '{}.scim'.format(PROJECT_NAME),
-    '{}.ldap'.format(PROJECT_NAME),
 )
 
 if DEBUG:
