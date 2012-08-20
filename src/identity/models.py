@@ -39,8 +39,10 @@ class Provider(Resource):
     """
 
 
-class Service(Resource):
-    """A resource capable of a service; or, represented as a product.
+class Consumer(Resource):
+    """
+    A resource capable of a consuming; or, represented as a product.
+    This is something that may be provisioned to.
     """
 
 
@@ -48,7 +50,7 @@ class Role(Timestamp):
     """TODO"""
 
     ## The service of which the role is defined in.
-    service = models.ForeignKey(Service)
+    service = models.ForeignKey(Consumer)
 
     ## TODO
     description = models.CharField(max_length=1024)
@@ -65,7 +67,7 @@ class Entitlement(Timestamp):
     """TODO"""
 
     ## The service of which the entitlement is defined in.
-    service = models.ForeignKey(Service)
+    service = models.ForeignKey(Consumer)
 
     ## TODO
     description = models.CharField(max_length=1024)
