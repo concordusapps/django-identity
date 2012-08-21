@@ -61,7 +61,7 @@ class Protocol(models.Model):
 
     def __unicode__(self):
         """Returns a textual representation of this."""
-        return self.name
+        return self.name.upper()
 
 
 class Host(Timestamp):
