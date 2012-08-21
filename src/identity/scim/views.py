@@ -75,6 +75,12 @@ class User(Endpoint):
         object_class = Profile
         resource_name = 'Users'
 
+        # Methods allowed for an individual user
+        detail_allowed_methods = ['GET', 'PUT', 'PATCH', 'DELETE']
+
+        # Methods allowed for a users endpoint
+        list_allowed_methods = ['POST']
+
 #    def get_object_list(self, request):
 #        """TODO:
 #        This function needs to return a list of scim objects representing all
