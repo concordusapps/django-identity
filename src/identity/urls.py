@@ -18,6 +18,8 @@ from django.views.generic import TemplateView
 # One-time startup code goes here:
 from . import startup
 
+# URL templates
+component = '{}.{{}}.urls'.format(settings.PROJECT_NAME)
 
 # URL configuration
 urlpatterns = patterns('',
@@ -26,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # Components
-    #url(r'^accounts/', include('{}.account.urls'.format(settings.PROJECT_NAME)))
+    #url(r'^accounts/', include('{}.account.urls'.format(settings.PROJECT_NAME))),
+    url(r'^saml/', include(component.format('saml'))),
     #url(r'^scim/', include(api.v1_api.urls)),
 )
