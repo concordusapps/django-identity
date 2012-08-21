@@ -163,6 +163,7 @@ INSTALLED_APPS = (
 
     # Components
     '{}.common'.format(PROJECT_NAME),
+    '{}.account'.format(PROJECT_NAME),
     '{}.saml'.format(PROJECT_NAME),
     '{}.scim'.format(PROJECT_NAME),
 )
