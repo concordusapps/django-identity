@@ -14,21 +14,5 @@
       "name": "https",
       "port": 443
     }
-  },
-  {
-    "pk": 3,
-    "model": "common.protocol",
-    "fields": {
-      "name": "ldap",
-      "port": 389
-    }
-  },
-  {
-    "pk": 4,
-    "model": "common.protocol",
-    "fields": {
-      "name": "ldaps",
-      "port": 636
-    }
   }
 ]
