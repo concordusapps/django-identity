@@ -12,7 +12,7 @@ from django.contrib import admin
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.views.generic import TemplateView
-from scim import api
+#from scim import api
 
 
 # One-time startup code goes here:
@@ -24,9 +24,7 @@ urlpatterns = patterns('',
     # Administration
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    # Accounts
-    url(r'^accounts/', include('identity.account.urls')),
 
-    # SCIM endpoint
-    url(r'^scim/', include(api.v1_api.urls)),
+    # Components
+    #url(r'^scim/', include(api.v1_api.urls)),
 )
