@@ -9,11 +9,10 @@
            All Rights Reserved.
 """
 from django.db import models
-from ..common.models import Timestamp
 from ..models import Consumer
 
 
-class Role(Timestamp):
+class Role(models.Model):
     """TODO"""
 
     ## The service of which the role is defined in.
@@ -30,7 +29,7 @@ class Role(Timestamp):
         return '{}: {}'.format(self.service.slug, self.description)
 
 
-class Entitlement(Timestamp):
+class Entitlement(models.Model):
     """TODO"""
 
     ## The service of which the entitlement is defined in.
