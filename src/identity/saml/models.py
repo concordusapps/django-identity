@@ -77,3 +77,7 @@ class Service(Timestamp):
             self.binding
         )
 
+    def get_absolute_url(self):
+        """Gets the absolute URL for the service."""
+        return '{}/{}'.format(self.resource.get_absolute_url(), self.path)
+

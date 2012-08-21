@@ -13,7 +13,7 @@ from django.conf import settings
 
 
 # URL templates
-service = r'^{}/(?P<slug>[^/]*?)/services/{}$'
+service = r'^{}/(?P<slug>[^/]*?)/services/{}'
 
 # URL configuration
 urlpatterns = patterns('',
@@ -21,7 +21,6 @@ urlpatterns = patterns('',
     #url(r'^providers/(?P<slug>[^/]*?)$', name='metadata'),
     #url(r'^resources/(?P<slug>[^/]*?)$', name='metadata'),
 
-    # Services
     #url(r'^providers/(?P<slug>[^/]*?)$', name='sso'),
     #url(r'^resources/(?P<slug>[^/]*?)$', name='slo'),
     #url(r'^resources/(?P<slug>[^/]*?)$', name='slo'),
@@ -31,5 +30,5 @@ urlpatterns = patterns('',
 # Provider
 urlpatterns += patterns('{}.saml.views.provider'.format(settings.PROJECT_NAME),
     url(service.format('providers', 'sso'), 'sso', name='sso'),
-    url(service.format('providers', 'slo'), 'slo', name='slo'),
+    #url(service.format('providers', 'slo'), 'slo', name='slo'),
 )

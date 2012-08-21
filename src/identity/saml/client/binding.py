@@ -19,7 +19,8 @@ class Binding(object):
     def receive(cls, request, kind):
         name = 'SAML{}'.format(kind.title())
         if name in request.GET:
-            return Redirect.decode(request.GET[name])
+            message = Redirect.decode(request.GET[name])
+            return message, request.GET.get('RelayState')
         else:
             raise ValueError("Couldn't detect binding.")
 

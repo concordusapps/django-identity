@@ -31,6 +31,10 @@ class Resource(InheritanceAware, Timestamp):
         """Returns a textual representation of this."""
         return self.name
 
+    def get_absolute_url(self):
+        """Gets the absolute URL for the service."""
+        return '{}/{}'.format(self.host.get_absolute_url(), self.path)
+
 
 class Provider(Resource):
     """

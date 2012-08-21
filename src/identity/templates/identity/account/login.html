@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{{ provider.name|capfirst }} :: Login</title>
+        <link rel="stylesheet" type="text/css"
+              href="{{ STATIC_URL }}css/singularity/login.css" />
+    </head>
+    <body>
+        <section id="login">
+            <h1>{{ provider.name|capfirst }}</h1>
+            <form method="post"> {% csrf_token %}
+                <label for="username">Username
+                    <input id="username" name="username" type="text" />
+                </label>
+                <label for="password">Password
+                    <input id="password" name="password" type="password" />
+                </label>
+                <button>Login</button>
+            </form>
+        </section>
+    </body>
+</html>
