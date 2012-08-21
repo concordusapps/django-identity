@@ -88,6 +88,6 @@ class Host(Timestamp):
             port = ':{}'.format(self.port)
 
         return '{}://{}{}'.format(
-            self.protocol,
+            self.protocol.name,
             self.server or 'localhost',
             port)
