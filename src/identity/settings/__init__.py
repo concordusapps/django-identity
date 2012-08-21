@@ -165,7 +165,7 @@ INSTALLED_APPS = (
     '{}.common'.format(PROJECT_NAME),
     '{}.account'.format(PROJECT_NAME),
     '{}.saml'.format(PROJECT_NAME),
-    '{}.scim'.format(PROJECT_NAME),
+#    '{}.scim'.format(PROJECT_NAME),
 )
 
 if DEBUG:
