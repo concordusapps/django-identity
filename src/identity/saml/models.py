@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-""" \file identity/models.py
-\brief Implements the core models for django-identity.
+""" \file identity/saml/models.py
+\brief Implements the saml models for django-identity.
 
 \author Erich Healy (cactuscommander) ErichRHealy@gmail.com
 \author Ryan Leckey (mehcode) leckey.ryan@gmail.com
