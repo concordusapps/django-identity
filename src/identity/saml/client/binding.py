@@ -11,6 +11,8 @@
 import abc
 import base64
 import zlib
+from django.shortcuts import redirect
+from urllib import urlencode
 
 
 class Binding(object):
@@ -23,6 +25,12 @@ class Binding(object):
             return message, request.GET.get('RelayState')
         else:
             raise ValueError("Couldn't detect binding.")
+
+    @classmethod
+    @abc.abstractmethod
+    def send(cls, message, state, kind):
+        """TODO"""
+        pass
 
     @staticmethod
     @abc.abstractmethod
@@ -39,6 +47,15 @@ class Binding(object):
 
 class Redirect(Binding):
     """TODO"""
+    @classmethod
+    def send(cls, destination, message, state, kind):
+        """TODO"""
+        params = {'SAML{}'.format(kind.title()): cls.encode(message)}
+        if state is not None:
+            params['RelayState'] = state
+
+        return redirect('{}?{}'.format(destination, urlencode(params)))
+
     @staticmethod
     def decode(message):
         """TODO"""

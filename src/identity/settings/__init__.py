@@ -165,7 +165,7 @@ INSTALLED_APPS = (
     '{}.common'.format(PROJECT_NAME),
     '{}.account'.format(PROJECT_NAME),
     '{}.saml'.format(PROJECT_NAME),
-    '{}.scim'.format(PROJECT_NAME),
+#    '{}.scim'.format(PROJECT_NAME),
 )
 
 if DEBUG:
@@ -183,9 +183,6 @@ LOGGING = {
     'handlers': {},
     'loggers': {}
 }
-
-# Define the extended user profile
-AUTH_PROFILE_MODULE = 'account.Profile'
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
