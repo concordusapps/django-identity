@@ -11,7 +11,6 @@
 from django.contrib import admin
 from django.conf.urls import patterns, include, url
 from django.conf import settings
-from django.views.generic import TemplateView
 #from scim import api
 
 
