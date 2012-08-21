@@ -26,5 +26,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # Components
+    url(r'^accounts/', include('{}.account.urls'.format(settings.PROJECT_NAME)))
     #url(r'^scim/', include(api.v1_api.urls)),
 )
