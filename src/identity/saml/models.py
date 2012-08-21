@@ -9,11 +9,11 @@
            All Rights Reserved.
 """
 from django.db import models
-from ..models import Provider
+from ..models import Provider, Resource
 from ..common.models import Timestamp
 
 
-class Binding(Timestamp):
+class Binding(models.Model):
     """
     Represents a binding a provider may use to connect to another providers'
     service.
@@ -57,8 +57,8 @@ class Service(Timestamp):
     """Represents a SAML service (ex. sso, acs, slo, etc).
     """
 
-    ## The provider for whom the service is for.
-    provider = models.ForeignKey(Provider)
+    ## The resource for whom the service is for.
+    resource = models.ForeignKey(Resource)
 
     ## Path on the provider as to where the service resides.
     path = models.CharField(max_length=1024)
@@ -72,7 +72,7 @@ class Service(Timestamp):
     def __unicode__(self):
         """Returns a representation of this instance as a string."""
         return '{}: {} <{}>'.format(
-            self.provider,
+            self.resource,
             self.profile,
             self.binding
         )

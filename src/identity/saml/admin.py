@@ -17,9 +17,10 @@ site.register(models.Profile)
 site.register(models.Binding)
 
 class ServiceAdmin(ModelAdmin):
-    list_filter = ('provider', 'profile', 'binding')
-    list_display = ('provider', 'profile', 'binding',)
+    list_filter = ('resource', 'profile', 'binding',)
+    list_display = ('resource', 'profile', 'binding',)
     list_display_links = ('profile',)
+    list_editable = ('binding',)
 
 
 site.register(models.Service, ServiceAdmin)
