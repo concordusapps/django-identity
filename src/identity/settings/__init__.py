@@ -188,7 +188,6 @@ AUTH_PROFILE_MODULE = 'account.Profile'
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
-    'identity.account.backends.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
