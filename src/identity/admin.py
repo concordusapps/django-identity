@@ -10,19 +10,7 @@
 """
 from django.contrib.admin import site
 from . import models
-from django.contrib.admin.options import ModelAdmin
 
 
 site.register(models.Consumer)
 site.register(models.Provider)
-
-
-class RoleEntitlementAdmin(ModelAdmin):
-    list_filter = ('service',)
-    list_display = ('service', 'value', 'description',)
-    list_editable = ('value',)
-    list_display_links = ('description',)
-
-
-site.register(models.Entitlement, RoleEntitlementAdmin)
-site.register(models.Role, RoleEntitlementAdmin)

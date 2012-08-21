@@ -44,37 +44,3 @@ class Consumer(Resource):
     A resource capable of a consuming; or, represented as a product.
     This is something that may be provisioned to.
     """
-
-
-class Role(Timestamp):
-    """TODO"""
-
-    ## The service of which the role is defined in.
-    service = models.ForeignKey(Consumer)
-
-    ## TODO
-    description = models.CharField(max_length=1024)
-
-    ## TODO
-    value = models.CharField(max_length=128)
-
-    def __unicode__(self):
-        """Returns a textual representation of this."""
-        return '{}: {}'.format(self.service.slug, self.description)
-
-
-class Entitlement(Timestamp):
-    """TODO"""
-
-    ## The service of which the entitlement is defined in.
-    service = models.ForeignKey(Consumer)
-
-    ## TODO
-    description = models.CharField(max_length=1024)
-
-    ## TODO
-    value = models.CharField(max_length=128)
-
-    def __unicode__(self):
-        """Returns a textual representation of this."""
-        return '{}: {}'.format(self.service.slug, self.description)
