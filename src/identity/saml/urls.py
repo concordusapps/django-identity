@@ -8,9 +8,18 @@
 \copyright Copyright 2012 © Concordus Applications, Inc.
            All Rights Reserved.
 """
-from django.conf.urls import patterns
+from django.conf.urls import patterns, url
 
 
 # URL configuration
 urlpatterns = patterns('',
+    # Metadata
+    #url(r'^providers/(?P<slug>[^/]*?)$', name='metadata'),
+    #url(r'^resources/(?P<slug>[^/]*?)$', name='metadata'),
+
+    # Services
+    url(r'^providers/(?P<slug>[^/]*?)$', name='sso'),
+    #url(r'^resources/(?P<slug>[^/]*?)$', name='slo'),
+    #url(r'^resources/(?P<slug>[^/]*?)$', name='slo'),
+    #url(r'^resources/(?P<slug>[^/]*?)$', name='acs'),
 )
