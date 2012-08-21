@@ -1,0 +1,86 @@
+[
+  {
+    "pk": 1,
+    "model": "saml.binding",
+    "fields": {
+      "name": "post"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "saml.binding",
+    "fields": {
+      "name": "artifact"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "saml.binding",
+    "fields": {
+      "name": "redirect"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "saml.binding",
+    "fields": {
+      "name": "soap"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "saml.profile",
+    "fields": {
+      "slug": "ars",
+      "name": "artifact resolution service"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "saml.profile",
+    "fields": {
+      "slug": "acs",
+      "name": "assertion consumer service"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "saml.profile",
+    "fields": {
+      "slug": "sso",
+      "name": "single sign on"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "saml.profile",
+    "fields": {
+      "slug": "slo",
+      "name": "single log out"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "saml.profile",
+    "fields": {
+      "slug": "mni",
+      "name": "name identifier management service"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "saml.profile",
+    "fields": {
+      "slug": "nim",
+      "name": "name identifier mapping service"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "saml.profile",
+    "fields": {
+      "slug": "aqr",
+      "name": "assertion request service"
+    }
+  }
+]
