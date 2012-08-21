@@ -10,10 +10,15 @@
 """
 from django.contrib import admin
 from django import template
+from django.contrib.auth.models import User, Group
 
 
 # Discover administration modules
 admin.autodiscover()
+
+# Remove auth models (as they are 'unused')
+admin.site.unregister(User)
+admin.site.unregister(Group)
 
 # Project-wide template tags
 template.add_to_builtins('django.templatetags.future')
