@@ -23,14 +23,14 @@ class Binding(object):
         else:
             raise ValueError("Couldn't detect binding.")
 
-    @abc.abstractmethod
     @staticmethod
+    @abc.abstractmethod
     def decode(message):
         """TODO"""
         pass
 
-    @abc.abstractmethod
     @staticmethod
+    @abc.abstractmethod
     def encode(message):
         """TODO"""
         pass
