@@ -9,7 +9,11 @@
            All Rights Reserved.
 """
 from django.conf.urls import patterns, url
+from django.conf import settings
 
+
+# URL templates
+service = r'^{}/(?P<slug>[^/]*?)/services/{}$'
 
 # URL configuration
 urlpatterns = patterns('',
@@ -18,8 +22,14 @@ urlpatterns = patterns('',
     #url(r'^resources/(?P<slug>[^/]*?)$', name='metadata'),
 
     # Services
-    url(r'^providers/(?P<slug>[^/]*?)$', name='sso'),
+    #url(r'^providers/(?P<slug>[^/]*?)$', name='sso'),
     #url(r'^resources/(?P<slug>[^/]*?)$', name='slo'),
     #url(r'^resources/(?P<slug>[^/]*?)$', name='slo'),
     #url(r'^resources/(?P<slug>[^/]*?)$', name='acs'),
+)
+
+# Provider
+urlpatterns += patterns('{}.saml.views.provider'.format(settings.PROJECT_NAME),
+    url(service.format('providers', 'sso'), 'sso', name='sso'),
+    url(service.format('providers', 'slo'), 'slo', name='slo'),
 )
