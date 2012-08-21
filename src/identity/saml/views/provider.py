@@ -10,7 +10,7 @@
 """
 from .. import models
 from ...models import Provider, Consumer
-from ..client.binding import Binding
+from ..client import binding
 
 from lxml import etree
 
@@ -34,8 +34,10 @@ def sso(request, *args, **kwargs):
     # Verify that the provider described in the URL exists
     provider = get_object_or_404(Provider, slug=kwargs['slug'])
 
-    # Different paths if the user is already authenticated
-    if not request.user.is_authenticated():
+    # Determine if we are from the login form or not
+    from_login = request.method == 'GET' and len(request.GET) == 1
+
+    if not from_login:
         # Generate request identifier to namespace variables stored in session
         # storage
         identifier = uuid4().hex
@@ -44,20 +46,23 @@ def sso(request, *args, **kwargs):
         # form
         identifier = request.GET['id']
 
+    # Template to pull namespaced items out of the session storage
     storage = '{}:saml:{{}}'.format(identifier)
 
-
-    # Different paths if the user is already authenticated
-    if not request.user.is_authenticated():
+    if not from_login:
         # Decode and deserialize the message
-        message, state = Binding.receive(request, 'request')
+        message, state = binding.Binding.receive(request, 'request')
         xml = etree.XML(message)
         obj = schema.samlp.AuthenticationRequest.deserialize(xml)
 
         # Verify that the issuing consumer is known to identity
         consumer = get_object_or_404(Consumer, name=obj.issuer.text)
-    elif:
-        # Get the consumer from the identifier
+    else:
+        # Get the consumer from the identifier passed from the login form
+        consumer = get_object_or_404(
+            Consumer,
+            slug=request.session[storage.format('consumer')]
+        )
 
     # Query for a list of services provided by the requester that we know
     # about; if we cannot find one for ACS, then return a 404
@@ -71,46 +76,25 @@ def sso(request, *args, **kwargs):
         profile=acs
     )
 
-    # TODO: Perform validation of message
+    if not from_login:
+        # TODO: Perform validation of message
+        pass
 
-    # Different paths if the user is already authenticated
+    # Store items in namespaced session storage
+    request.session[storage.format('provider')] = provider.slug
+    request.session[storage.format('consumer')] = consumer.slug
+    request.session[storage.format('message:id')] = obj.id
+    request.session[storage.format('state')] = state
+
     if not request.user.is_authenticated():
-        # Store things in session storage TEMPORARILY to transfer to the login
-        # view; which, in turn, promptly deletes them.
-        request.session[storage.format('provider')] = provider.slug
-        request.session[storage.format('consumer')] = consumer.slug
-        request.session[storage.format('message:id')] = obj.id
-        request.session[storage.format('state')] = state
-
-        # Send user off to get authenticated
-        # Redirect to login page
+        # Send user off to get authenticated;
+        # redirect to login page
         return redirect('{}?{}'.format(
             reverse('login'),
             urlencode({'id': identifier})
         ))
     else:
-        # Query for the consumer
-        consumer = get_object_or_404(
-            Consumer,
-            slug=request.session[storage.format('consumer')]
-        )
-
-        # Query for the provider
-        provider = get_object_or_404(
-            Provider,
-            slug=request.session[storage.format('provider')]
-        )
-
-        # Query for a list of services provided by the requester that we know
-        # about; if we cannot find one for ACS, then return a 404
-        # TODO: Handle the case of more than one acs
-        service = get_object_or_404(
-            models.Service,
-            resource=consumer,
-            profile=acs
-        )
-
-        # Assign subject id to user
+        # Assign subject id to user if not already assigned
         if 'saml:subject' not in request.session:
             request.session['saml:subject'] = uuid4().hex
 
@@ -123,37 +107,46 @@ def sso(request, *args, **kwargs):
                     value=schema.samlp.StatusCode.Value.SUCCESS
                 )
             ),
-            assertion=saml.Assertion(
+            assertion=schema.saml.Assertion(
                 issuer=schema.saml.Issuer(provider.name),
                 subject=schema.saml.Subject(
                     id=schema.saml.NameID(request.session['saml:subject']),
                     confirm=schema.saml.SubjectConfirmation(
                         data=schema.saml.SubjectConfirmationData(
-                            in_response_to=consumer.name,
-                            not_before=datetime.utcnow(),
-                            not_on_or_after=datetime.utcnow() +
-                                timedelta(minutes=2)
+                            in_response_to=consumer.name
                         )
                     )
                 ),
                 statements=[
                     schema.saml.AuthenticationStatement(
-                        session_not_on_or_after=datetime.utcnow() +
-                            timedelta(minutes=2),
                         context=schema.saml.AuthenticationContext(
                             reference=schema.saml.AuthenticationContext.
                                 Reference.PREVIOUS_SESSION
                         )
-                    )
+                    ),
+                    schema.saml.AttributeStatement(
+                        attributes=[
+                            schema.saml.Attribute(
+                                name='uid',
+                                values=request.user.username
+                            ),
+                        ]
+                    ),
                 ]
             )
         )
 
-        # DEBUG
-        dob = schema.samlp.Response.serialize(obj)
-        s = etree.tostring(dob, pretty_print)
+        # Serialize message to a string
+        message = etree.tostring(schema.samlp.Response.serialize(obj))
+        print(message)
 
-        print(s)
+        # Send off
+        return binding.Redirect.send(
+            service.get_absolute_url(),
+            message,
+            request.session[storage.format('state')],
+            'response'
+        )
 
 
 def slo(request, *args, **kwargs):
