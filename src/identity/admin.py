@@ -13,7 +13,7 @@ from . import models
 from django.contrib.admin.options import ModelAdmin
 
 
-site.register(models.Service)
+site.register(models.Consumer)
 site.register(models.Provider)
 
 
