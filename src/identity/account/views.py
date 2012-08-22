@@ -28,8 +28,7 @@ class Login(FormView):
         self.success_url = '{}?{}'.format(reverse('sso', kwargs={
                 'slug': slug
             }), urlencode({
-                'id': self.request.GET['id'],
-                '': self
+                'id': self.request.GET['id']
             })
         )
 
